@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Agiota na Mão</title>
+	<title>Empréstimo na Mão - Login</title>
 
 	<!-- Folha de Estilo do Bootstrap -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -34,6 +34,7 @@
 			justify-content: center;
 			align-items: center;
 			text-align: center;
+			transition: transform 0.3s ease;
 		}
 
 		.right-column {
@@ -84,7 +85,7 @@
 			<div class="col-md-6 d-flex flex-column justify-content-center">
 				<h3>A Maior Sociedade de Empréstimo entre Pessoas!</h3>
 				<hr class="w-100">
-				<div class="mt-5 w-75 mx-auto">
+				<div class="mt-2 w-75 mx-auto">
 					<h4>Realize o Login em sua Conta</h4>
 					<label>Insira seu email e senha para realizar o login</label>
 				</div>
@@ -94,8 +95,13 @@
 						<div class="form-group">
 							<input name="email" type="email" class="form-control w-100" placeholder="E-mail">
 						</div>
-						<div class="form-group mt-1 mb-1">
-							<input name="senha" type="password" class="form-control w-100" placeholder="Senha">
+						<div class="input-group mb-3">
+							<input id="senha" name="senha" type="password" class="form-control" placeholder="Senha" aria-label="Senha" aria-describedby="button-addon1">
+							<div class="input-group-append">
+								<button class="btn btn-outline-secondary" type="button" id="togglePassword">
+									<i class="fas fa-eye"></i>
+								</button>
+							</div>
 						</div>
 						<?php if (isset($_GET['login']) && $_GET['login'] == 'erro') { ?>
 							<div class="text-danger">
@@ -113,7 +119,7 @@
 				</div>
 
 				<div class="p-3 w-75 mx-auto">
-					<a href="/signin" class="shadow-lg btn btn-dark btn-block">Cadastre-se</a>
+					<a href="/register" class="shadow-lg btn btn-dark btn-block">Cadastre-se</a>
 				</div>
 			</div>
 			<!-- Metade direita -->
@@ -122,6 +128,16 @@
 			</div>
 		</div>
 	</div>
+	<script>
+		const togglePassword = document.querySelector('#togglePassword');
+		const password = document.querySelector('#senha');
+
+		togglePassword.addEventListener('click', function(e) {
+			const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+			password.setAttribute('type', type);
+			this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+		});
+	</script>
 </body>
 
 </html>

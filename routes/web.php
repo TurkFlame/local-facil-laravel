@@ -10,12 +10,12 @@ Route::get('/', function () {
 });
 
 
-Route::get('/login', function () {
-    return view('login');
+Route::get('/register', function () {
+    return view('pages.register');
 });
 
-Route::get('/signin', function () {
-    return view('signin');
+Route::get('/home', function () {
+    return view('pages.home');
 });
 
 Route::post('/login', function () {
