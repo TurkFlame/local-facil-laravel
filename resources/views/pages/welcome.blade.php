@@ -25,6 +25,8 @@
 			height: 100%;
 			margin: 0;
 			padding: 0;
+			font-family: var(--main-font);
+			color: #fff;
 		}
 
 		body {
@@ -47,20 +49,44 @@
 			height: 100%;
 			object-fit: cover;
 			border-radius: 6px 0 0 6px;
-			box-shadow: -10px 0 25px rgba(0, 0, 0, 0.2);
+		}
+
+		h3,
+		h5,
+		label {
+			font-family: var(--main-font);
+			font-weight: 700;
+		}
+
+		label {
+			font-size: 12px;
+			color: gray;
+		}
+
+		.line-container {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.line {
+			background-color: #fff;
+			height: 1px;
+			font-size: 5px;
 		}
 	</style>
 </head>
 
-<body class="bg-light">
+<body class="bg-dark">
 	<div class="container-fluid h-100">
 		<div class="row h-100">
 			<!-- Metade esquerda -->
 			<div class="col-md-6 d-flex flex-column justify-content-center">
-				<h3 class="mb-5 fs-2">A Maior Sociedade de Empréstimo entre Pessoas!</h3>
-
-				<div class="p-3 w-75 mx-auto">
-					<h4 class="mb-0 fs-2">Realize o Login em sua Conta</h4>
+				<h3>A Maior Sociedade de Empréstimo entre Pessoas!</h3>
+				<hr class="w-100">
+				<div class="mt-5 w-75 mx-auto">
+					<h4>Realize o Login em sua Conta</h4>
+					<label>Insira seu email e senha para realizar o login</label>
 				</div>
 
 				<div class="p-3 w-75 mx-auto">
@@ -76,19 +102,22 @@
 								Usuário ou senha inválido(s)
 							</div>
 						<?php } ?>
-						<button class="btn btn-dark btn-block mt-3" type="submit">
-							Entrar
+						<button class="btn btn-light btn-block mt-3" type="submit">
+							Logar
 						</button>
 					</form>
 				</div>
 
-				<div class="mt-4 text-center">
-					<a href="/signin" class="shadow-sm btn btn-dark w-50 ml-2">Cadastre-se</a>
-					<a href="/login" class="shadow-sm btn btn-info w-50 mt-2">Logar</a>
+				<div class="p-3 w-75 mx-auto">
+					<p class="line-container"><b class="line w-25"></b><span class="w-50">Não possui cadastro?</span> <b class="line w-25"></b>
+				</div>
+
+				<div class="p-3 w-75 mx-auto">
+					<a href="/signin" class="shadow-lg btn btn-dark btn-block">Cadastre-se</a>
 				</div>
 			</div>
 			<!-- Metade direita -->
-			<div class="col-md-6 right-column">
+			<div class="col-md-6 right-column shadow">
 				<img src="{{ asset('img/agiotas-cumprimento2.jpg') }}" alt="foto">
 			</div>
 		</div>
