@@ -11,13 +11,13 @@ Route::get('/', function () {
     return view('pages.login');
 });
 
-Route::post('/logar', [Login::class, 'validate_login']);
+Route::post('/logar', [Login::class, 'index']);
 
 Route::get('/cadastro', function () {
     return view('pages.cadastro');
 });
 
-Route::post('/registrar', [Register::class, 'validate_register']);
+Route::post('/registrar', [Register::class, 'index']);
 
 Route::get('/home', function () {
     return view('pages.home');

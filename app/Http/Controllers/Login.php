@@ -14,20 +14,33 @@ class Login extends Controller
 
     public function __construct(Authorizor $authorizor)
     {
-        $this->authorizor = $authorizor; // Correctly injected via constructor
+        $this->authorizor = $authorizor;
     }
 
-    public function validate_login(Request $request)
+    public function index(Request $request)
     {
         $email = $request->input('email');
         $senha = $request->input('senha');
+        $valida_login = $this->validate_login($email, $senha);
+        if ($valida_login['status']) {
+            return redirect('/home');
+        }
+        return $valida_login['msg'];
+    }
+
+    public function validate_login($email, $senha)
+    {
         $user = User::where("email", $email)->first();
 
-        if ($user && Hash::check($senha, $user->senha)) { // Simplified password check (not recommended for production)
-            $this->authorizor->authorizeCurrentUser($user);
-            return redirect('home'); // Example redirection
+        if ($user) {
+            if (Hash::check($senha, $user->senha)) {
+                echo $this->authorizor->authorizeCurrentUser($user);
+                return ['status' => true, "msg" => 'Sucesso. Seja bem vindo!'];
+            } else {
+                return ['status' => false, "msg" => 'Email ou senha não coincidem.'];
+            }
         } else {
-            return back()->withErrors(['email' => 'Invalid credentials.'])->withInput(); // Example error handling
+            return ['status' => false, "msg" => 'Usuário não cadastrado.'];
         }
     }
 }

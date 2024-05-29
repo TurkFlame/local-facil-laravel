@@ -101,7 +101,6 @@
 
                 <div class="p-3 w-75 mx-auto">
                     <form action="/registrar" method="post">
-                        @csrf
                         <div class="form-group">
                             <input name="nome" class="form-control w-100" placeholder="Nome">
                         </div>
