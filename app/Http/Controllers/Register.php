@@ -20,9 +20,9 @@ class Register extends Controller
          $user = User::where("email", $email)->first();
          if (empty($user)) {
             $this->createUser($nome, $senha, $email);
-            return redirect('home'); // Example redirection
+            return redirect('home');
          }else{
-            return redirect('/register'); // Example redirection
+            return redirect('/cadastro');
          }
       }
    }
