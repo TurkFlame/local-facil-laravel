@@ -11,19 +11,20 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $fillable = ['nome', 'email', 'senha'];
-
+    protected $table = "usuarios";
+    public $timestamps = false;
     
     protected $hidden = [
         'senha',
     ];
+    protected $fillable = ['nome', 'email', 'senha'];
 
-    protected function casts(): array
-    {
-        return [
-            'senha' => 'hashed',
-        ];
-    }
+    protected  $cast = [
+        'nome' => 'string',
+        'email' => 'string',
+        'senha' => 'string',
+    ];
+
 
     public function chamados()
     {

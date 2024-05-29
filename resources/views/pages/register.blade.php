@@ -100,7 +100,11 @@
                 </div>
 
                 <div class="p-3 w-75 mx-auto">
-                    <form action="../valida_login.php" method="post">
+                    <form action="/registrar" method="post">
+                        @csrf
+                        <div class="form-group">
+                            <input name="nome" class="form-control w-100" placeholder="Nome">
+                        </div>
                         <div class="form-group">
                             <input name="email" type="email" class="form-control w-100" placeholder="E-mail">
                         </div>
