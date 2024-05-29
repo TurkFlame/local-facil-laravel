@@ -20,10 +20,10 @@ class Login extends Controller
     public function validate_login(Request $request)
     {
         $email = $request->input('email');
-        $senha = Hash::make($request->input('senha'));
+        $senha = $request->input('senha');
         $user = User::where("email", $email)->first();
 
-        if ($user && Hash::check($user->senha, $senha)) { // Simplified password check (not recommended for production)
+        if ($user && Hash::check($senha, $user->senha)) { // Simplified password check (not recommended for production)
             $this->authorizor->authorizeCurrentUser($user);
             return redirect('home'); // Example redirection
         } else {
