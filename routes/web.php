@@ -1,32 +1,40 @@
 <?php
 
-use App\Http\Controllers\Agiota;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Login;
 use App\Http\Controllers\Register;
+use App\Http\Middleware\EnsureSessionIsOpened;
+use App\Providers\Provider;
 
-Route::resource('agiota', Agiota::class);
+Route::post('/login', [Login::class, 'index']);
+Route::get('/login', function () {
+    session()->forget('name');
+    session()->forget('email');
+    return view('pages.login');
+})->name('login');
+
+Route::post('/register', [Register::class, 'index']);
+Route::get('/register', function () {
+    return view('pages.register');
+})->name('register');
 
 Route::get('/', function () {
-    return view('pages.login');
+    return redirect()->route('login');
 });
 
-Route::post('/logar', [Login::class, 'index']);
+Route::middleware([EnsureSessionIsOpened::class])->group(function () {
+    Route::get('/home', function () {
+        return view('pages.home');
+    })->name('home');
 
-Route::get('/cadastro', function () {
-    return view('pages.cadastro');
+    Route::get('/favoritos', function () {
+        return view('pages.favoritos');
+    });
+
+    Route::get('/simular', function () {
+        return view('pages.simular');
+    });
 });
 
-Route::post('/registrar', [Register::class, 'index']);
+Route::post('/login_temporary', [Provider::class, 'login']);
 
-Route::get('/home', function () {
-    return view('pages.home');
-});
-
-Route::get('/favoritos', function () {
-    return view('pages.favoritos');
-});
-
-Route::get('/simular', function () {
-    return view('pages.simular');
-});

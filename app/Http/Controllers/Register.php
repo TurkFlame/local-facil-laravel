@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
-use GuzzleHttp\Client;
+
+use App\Http\Controllers\Login;
 
 class Register extends Controller
 {
@@ -28,8 +29,9 @@ class Register extends Controller
          if ($valida_login["status"]) {
             return redirect("/home");
          }
+         return redirect()->route("login");
       }
-      return $valida_registro['msg'];
+      return redirect()->route("register");
    }
 
    public function validate_register($nome, $email, $confirmar_senha, $senha)

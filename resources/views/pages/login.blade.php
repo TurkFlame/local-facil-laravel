@@ -91,7 +91,7 @@
 				</div>
 
 				<div class="p-3 w-75 mx-auto">
-					<form action="/logar" method="post">	
+					<form action="/login" method="post">	
 						@csrf
 						<div class="form-group">
 							<input name="email" type="email" class="form-control w-100" placeholder="E-mail">
@@ -120,7 +120,7 @@
 				</div>
 
 				<div class="p-3 w-75 mx-auto">
-					<a href="/cadastro" class="shadow-lg btn btn-dark btn-block">Cadastre-se</a>
+					<a href="/register" class="shadow-lg btn btn-dark btn-block">Cadastre-se</a>
 				</div>
 			</div>
 			<!-- Metade direita -->

@@ -100,7 +100,8 @@
                 </div>
 
                 <div class="p-3 w-75 mx-auto">
-                    <form action="/registrar" method="post">
+                    <form action="/register" method="post">
+                        @csrf
                         <div class="form-group">
                             <input name="nome" class="form-control w-100" placeholder="Nome">
                         </div>
@@ -140,7 +141,7 @@
                 </div>
 
                 <div class="p-3 w-75 mx-auto">
-                    <a href="/" class="shadow-lg btn btn-dark btn-block">Login</a>
+                    <a href="/login" class="shadow-lg btn btn-dark btn-block">Login</a>
                 </div>
             </div>
         </div>

@@ -1,4 +1,6 @@
 <?php
+namespace App\Providers;
+
 use GuzzleHttp\Client;
 
 class Provider
@@ -12,21 +14,18 @@ class Provider
         $this->base_url = 'http://127.0.0.1:8080';
     }
 
-    public function login($username, $password)
+    public function login($email, $password)
     {
         try {
-            $response = $this->client->post($this->base_url . '/logar', [
+            $response = $this->client->post($this->base_url . '/login', [
                 'json' => [
-                    'email' => $username,
+                    'email' => $email,
                     'senha' => $password,
                 ]
             ]);
-            $body = json_decode($response->getBody(), true);
-
-            return $body;
+            return json_decode($response->getBody(), true);
         } catch (\Exception $e) {
-            echo "Erro ao fazer login: " . $e->getMessage();
-            return null;
+            return ['status' => false, 'msg' => $e];
         }
     }
 }
