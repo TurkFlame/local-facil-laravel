@@ -1,25 +1,41 @@
 <?php
 
-use App\Http\Controllers\Agiota;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Login;
+use App\Http\Controllers\Register;
+use App\Http\Middleware\EnsureSessionIsOpened;
+use App\Providers\Provider;
 
-Route::resource('agiota', Agiota::class);
+Route::post('/login', [Login::class, 'index']);
+Route::get('/login', function () {
+    session()->forget('name');
+    session()->forget('email');
+    return view('pages.login');
+})->name('login');
 
-Route::get('/', function () {
-    return view('pages.welcome');
-});
-
-
+Route::post('/register', [Register::class, 'index']);
 Route::get('/register', function () {
     return view('pages.register');
+})->name('register');
+
+Route::get('/', function () {
+    return redirect()->route('login');
 });
 
-Route::get('/home', function () {
-    return view('pages.home');
-});
+Route::middleware([EnsureSessionIsOpened::class])->group(function () {
+    Route::get('/home', function () {
+        return view('pages.home');
+    })->name('home');
 
-Route::post('/login', function () {
-});
+    Route::get('/favoritos', function () {
+        return view('pages.favoritos');
+    });
 
-Route::post('/signin', function () {    
+    Route::get('/simular', function () {
+        return view('pages.simular');
+    });
+
+    Route::get('/debitos', function () {
+        return view('pages.debitos');
+    });
 });

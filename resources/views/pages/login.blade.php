@@ -91,7 +91,8 @@
 				</div>
 
 				<div class="p-3 w-75 mx-auto">
-					<form action="../valida_login.php" method="post">
+					<form action="/login" method="post">	
+						@csrf
 						<div class="form-group">
 							<input name="email" type="email" class="form-control w-100" placeholder="E-mail">
 						</div>
@@ -124,7 +125,7 @@
 			</div>
 			<!-- Metade direita -->
 			<div class="col-md-6 right-column shadow">
-				<img src="{{ asset('img/agiotas-cumprimento2.jpg') }}" alt="foto">
+				<img src="img/agiotas-cumprimento2.jpg" alt="foto">
 			</div>
 		</div>
 	</div>

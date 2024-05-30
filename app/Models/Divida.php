@@ -10,6 +10,11 @@ class Divida extends Model
     use HasFactory;
 
     protected $fillable = ['nome', 'valor', 'data_pagamento'];
+    protected $casts = [
+        'nome' => "string",
+        'valor' => "int",
+        'data_pagamento' => 'datetime',
+    ];
 
     public function cliente()
     {

@@ -62,23 +62,22 @@
 
     <div id="input-container">
         <form class="form-inline">
-            <a href="./lista_favoritos.view.php">
+            <a href="/favoritos">
                 <button type="button" class="btn btn-danger mb-2 btn-inicial">
                     <i class="fas fa-star mr-1"></i> Favoritos
                 </button>
             </a>
-            <a href="./lista_agiotas.view.php">
-                <button type="button" class="btn btn-primary mb-2">
-                    <i class="fas fa-male mr-1"></i> Empresários
+            <a href="/simular">
+                <button type="button" class="btn btn-secondary mb-2">
+                    <i class="fas fa-handshake mr-1"></i> Simular
                 </button>
             </a>
-            <a href="./lista_dividas.view.php">
-                <button type="button" class="btn btn-warning mb-2">
+            <a href="/debitos">
+                <button type="button" class="btn btn-primary mb-2">
                     <i class="fas fa-credit-card mr-1"></i> Débitos
                 </button>
             </a>
 
-            <button type="button" class="btn btn-success mb-2 btn-final" onclick="buscarCEP()"> <i class="fas fa-map mr-1"></i> Mapa</button>
         </form>
     </div>
 
@@ -95,10 +94,6 @@
 
         function criarPopup(id, imagemUrl, nome, estrelas, favorito) {
             // Seu código para criar um popup no mapa
-        }
-
-        function buscarCEP() {
-            // Seu código para buscar o CEP e atualizar o mapa
         }
 
         function shuffleArray(array) {
