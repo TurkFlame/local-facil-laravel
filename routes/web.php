@@ -34,7 +34,8 @@ Route::middleware([EnsureSessionIsOpened::class])->group(function () {
     Route::get('/simular', function () {
         return view('pages.simular');
     });
+
+    Route::get('/debitos', function () {
+        return view('pages.debitos');
+    });
 });
-
-Route::post('/login_temporary', [Provider::class, 'login']);
-
