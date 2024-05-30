@@ -131,12 +131,12 @@
                         <i class="fas fa-star mr-1"></i> Favoritos
                     </button>
                 </a>
-                <a href="./debitos.view.php">
-                    <button type="button" class="btn btn-primary mb-2">
-                        <i class="fas fa-credit-card mr-1"></i> Débitos
+                <a href="/simular">
+                    <button type="button" class="btn btn-secondary mb-2">
+                        <i class="fas fa-handshake mr-1"></i> Simular
                     </button>
                 </a>
-                <a href="./home.view.php">
+                <a href="/home">
                     <button type="button" class="btn btn-success mb-2 btn-final">
                         <i class="fas fa-map mr-1"></i> Mapa
                     </button>

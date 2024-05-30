@@ -21,12 +21,11 @@
     <style>
         .btn {
             width: 120px;
-            color: black;
-            background-color: #fff;
+            background-color: #212529;
             border-color: transparent !important;
         }
 
-        #input-container {
+        .input-container {
             position: fixed;
             bottom: 0;
             left: 0;
@@ -35,9 +34,10 @@
             padding: 10px 0;
             display: flex;
             justify-content: center;
+            z-index: 999;
         }
 
-        #input-container .btn {
+        .input-container .btn {
             margin-right: 0;
         }
 
@@ -52,15 +52,23 @@
         .btn-final {
             border-radius: 0 6px 6px 0 !important;
         }
+
+        body,
+        html,
+        #map {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
     </style>
 
 </head>
 
 <body class="bg-dark">
-    <div id="map" style="height: calc(100% - 50px);">
-    </div>
+    <div id="map"></div>
 
-    <div id="input-container">
+
+    <div class="input-container">
         <form class="form-inline">
             <a href="/favoritos">
                 <button type="button" class="btn btn-danger mb-2 btn-inicial">
@@ -73,7 +81,7 @@
                 </button>
             </a>
             <a href="/debitos">
-                <button type="button" class="btn btn-primary mb-2">
+                <button type="button" class="btn btn-primary btn-final mb-2">
                     <i class="fas fa-credit-card mr-1"></i> Débitos
                 </button>
             </a>
@@ -88,17 +96,54 @@
             // Seu código para favoritar um agiota
         }
 
-        function visualizar(id) {
-            // Seu código para visualizar informações de um agiota
+        function buscarMapa(id) {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var lat = position.coords.latitude;
+                    var lon = position.coords.longitude;
+
+                    // Limpa o mapa e os marcadores antes de fazer uma nova busca
+                    if (map) {
+                        map.remove();
+                    }
+
+                    // Cria um novo mapa com o Leaflet
+                    map = L.map('map').setView([lat, lon], 15);
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        maxZoom: 19,
+                    }).addTo(map);
+                    L.marker([lat, lon]).addTo(map).bindPopup('Você está aqui!');
+
+
+                    // Adiciona entre 1 e 5 marcadores com ícones personalizados
+                    var numMarkers = Math.floor(Math.random() * 5) + 1; // Entre 1 e 5 marcadores
+                    for (var i = 0; i < numMarkers; i++) {
+                        /*var agiota = agiotaData[i];
+                        var randomImageUrl = agiota.url;*/
+
+                        var randomLatOffset = (Math.random() - 0.5) / 111.2 * 5; // Aproximadamente 111.2 km por grau de latitude
+                        var randomLonOffset = (Math.random() - 0.5) / (111.2 * Math.cos(lat * Math.PI / 180)) * 5; // Aproximadamente 111.2 km por grau de longitude
+
+                        var icon = L.icon({
+                            /*iconUrl: randomImageUrl,*/
+                            iconSize: [50, 50], // Tamanho do ícone
+                            iconAnchor: [25, 50], // Ponto de ancoragem do ícone
+                            popupAnchor: [0, -50] // Ponto de ancoragem do popup
+                        });
+                        L.marker([lat + randomLatOffset, lon + randomLonOffset], {
+                                icon: icon
+                            }).addTo(map)
+                            /*.bindPopup(criarPopup(agiota.id, randomImageUrl, agiota.nome, Math.floor(Math.random() * 5) + 1), agiota.favorito);*/
+                    }
+                });
+            } else {
+                alert('Seu navegador não suporta Geolocalização.');
+            }
         }
 
-        function criarPopup(id, imagemUrl, nome, estrelas, favorito) {
-            // Seu código para criar um popup no mapa
-        }
 
-        function shuffleArray(array) {
-            // Seu código para embaralhar um array
-        }
+
+        document.addEventListener("DOMContentLoaded", buscarMapa);
     </script>
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
