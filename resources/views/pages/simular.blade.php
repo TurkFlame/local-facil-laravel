@@ -1,3 +1,10 @@
+<?php
+$telaAtual = 'simular';
+@include('barra_navegacao')
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 

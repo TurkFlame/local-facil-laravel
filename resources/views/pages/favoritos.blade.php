@@ -1,3 +1,9 @@
+<?php
+$telaAtual = 'favoritos';
+@include('barra_navegacao')
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 

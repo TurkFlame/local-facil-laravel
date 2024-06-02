@@ -1,3 +1,9 @@
+<?php
+$telaAtual = 'home';
+@include('barra_navegacao')
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
