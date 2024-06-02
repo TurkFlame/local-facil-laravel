@@ -13,74 +13,7 @@
     <!-- Folha de Estilo do Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-    <style>
-        :root {
-            --main-font: 'Roboto', sans-serif;
-        }
-
-        html,
-        body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            font-family: var(--main-font);
-            color: #fff;
-        }
-
-        .label-imposto {
-            color: gray;
-        }
-
-        #input-container {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background-color: transparent;
-            padding: 10px 0;
-            display: flex;
-            justify-content: center;
-            z-index: 999;
-        }
-
-        #input-container .btn {
-            margin-right: 0;
-        }
-
-        .btn {
-            background-color: #fff;
-            color: black;
-            border: none;
-            border-radius: 0 !important;
-        }
-
-        .custom-btn {
-            border-radius: 6px !important;
-        }
-
-        .btn-inicial {
-            border-radius: 6px 0 0 6px !important;
-        }
-
-        .btn-final {
-            border-radius: 0 6px 6px 0 !important;
-        }
-
-        label,
-        p,
-        i {
-            color: black;
-        }
-
-        .card {
-            margin-bottom: 10px;
-        }
-
-        .btn-desfavoritar {
-            border-radius: 8px !important;
-            background-color: #ee0e0e !important;
-        }
-    </style>
+    <link rel="stylesheet" href="\css\app.css">
 </head>
 
 <body class="bg-dark">

@@ -15,50 +15,7 @@
     <!-- Folha de Estilo do Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 
-    <style>
-        .btn {
-            width: 120px;
-            background-color: #212529;
-            border-color: transparent !important;
-        }
-
-        .input-container {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background-color: transparent;
-            padding: 10px 0;
-            display: flex;
-            justify-content: center;
-            z-index: 999;
-        }
-
-        .input-container .btn {
-            margin-right: 0;
-        }
-
-        button {
-            border-radius: 0 !important;
-        }
-
-        .btn-inicial {
-            border-radius: 6px 0 0 6px !important;
-        }
-
-        .btn-final {
-            border-radius: 0 6px 6px 0 !important;
-        }
-
-        body,
-        html,
-        #map {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
-    </style>
-
+    <link rel="stylesheet" href="\css\app.css">
 </head>
 
 <body class="bg-dark">

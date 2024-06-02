@@ -16,78 +16,7 @@
     <!-- Importar a fonte Roboto do Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
-
-    <style>
-        :root {
-            --main-font: 'Roboto', sans-serif;
-        }
-
-        html,
-        body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            font-family: var(--main-font);
-            color: #fff;
-        }
-
-        .label-imposto {
-            color: gray;
-        }
-
-        #input-container {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background-color: transparent;
-            padding: 10px 0;
-            display: flex;
-            justify-content: center;
-            z-index: 999;
-        }
-
-        #input-container .btn {
-            margin-right: 0;
-        }
-
-        .btn {
-            background-color: #fff;
-            color: black;
-            border: none;
-            border-radius: 0 !important;
-        }
-
-        .custom-btn {
-            border-radius: 6px !important;
-        }
-
-        .btn-inicial {
-            border-radius: 6px 0 0 6px !important;
-        }
-
-        .btn-final {
-            border-radius: 0 6px 6px 0 !important;
-        }
-
-        .table-container {
-            margin-top: 20px;
-        }
-
-        .table {
-            color: #fff;
-        }
-
-        .bg-dark {
-            background-color: #343a40 !important;
-        }
-
-
-        .table {
-            border-radius: 10px;
-            overflow: hidden;
-        }
-    </style>
+    <link rel="stylesheet" href="\css\app.css">
 </head>
 
 <body class="bg-dark">
