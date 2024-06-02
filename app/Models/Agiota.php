@@ -17,6 +17,9 @@ class Agiota extends Model
         'mortes',
         'emprestimo',
         'procurado',
+        'telefone',
+        'email',
+        'idade',
         'created_at',
         'updated_at'
     ];
@@ -28,6 +31,9 @@ class Agiota extends Model
         'mortes' => 'integer',
         'emprestimo' => 'integer',
         'procurado' => 'boolean',
+        'telefone' => 'string',
+        'email' => 'string',
+        'idade' => 'integer',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
