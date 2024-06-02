@@ -99,39 +99,43 @@
 
             $listaFavoritos = $userFavoriteAgiotasController->getFavoritesAgiotasByUserId(session()->get('id'));
 
-            foreach ($listaFavoritos as $agiota) {
-                $agiotaModel = new Agiota;
-                $agiota = $agiotaModel->getAgiotaById($agiota->agiota_id);
-
+            if (empty($listaFavoritos)) {
+                echo "<div class='card'><div class='card-body'><p>Não há agiotas favoritos.</p></div></div>";
+            } else {
+                foreach ($listaFavoritos as $agiota) {
+                    $agiotaModel = new Agiota;
+                    $agiota = $agiotaModel->getAgiotaById($agiota->agiota_id);
             ?>
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center" id="heading<?php echo $agiota->id; ?>" data-toggle="collapse" data-target="#collapse<?php echo $agiota->id; ?>" aria-expanded="true" aria-controls="collapse<?php echo $agiota->id; ?>">
-                        <h5 class="mb-0">
-                            <label><?php echo $agiota->nome; ?></label>
-                        </h5>
-                        <div data-toggle="tooltip" title="Desfavoritar">
-                            <button type="button" class="btn btn-danger btn-desfavoritar" onclick="<?php
-                                                                                                    $userFavoriteAgiotasController->desfavoritarAgiota($agiota->id, session()->get('id')) ?>
-                                            ">
-                                <i class="fas fa-times-circle"></i>
-                            </button>
-                            <i class="fas fa-chevron-down ml-3" id="icon-<?php echo $agiota->id; ?>"></i>
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center" id="heading<?php echo $agiota->id; ?>" data-toggle="collapse" data-target="#collapse<?php echo $agiota->id; ?>" aria-expanded="true" aria-controls="collapse<?php echo $agiota->id; ?>">
+                            <h5 class="mb-0">
+                                <label><?php echo $agiota->nome; ?></label>
+                            </h5>
+                            <div data-toggle="tooltip" title="Desfavoritar">
+                                <button type="button" class="btn btn-danger btn-desfavoritar" onclick="<?php
+                                                                                                        $userFavoriteAgiotasController->desfavoritarAgiota($agiota->id, session()->get('id')) ?>
+                                                ">
+                                    <i class="fas fa-times-circle"></i>
+                                </button>
+                                <i class="fas fa-chevron-down ml-3" id="icon-<?php echo $agiota->id; ?>"></i>
+                            </div>
                         </div>
-                    </div>
 
-                    <div id="collapse<?php echo $agiota->id; ?>" class="collapse" aria-labelledby="heading<?php echo $agiota->id; ?>" data-parent="#accordion">
-                        <div class="card-body d-flex">
-                            <img src="<?php echo $agiota->url; ?>" class="img-thumbnail mr-3" alt="Foto do Agiota" width="80">
-                            <div>
-                                <p>Detalhes adicionais sobre <?php echo $agiota->nome; ?></p>
+                        <div id="collapse<?php echo $agiota->id; ?>" class="collapse" aria-labelledby="heading<?php echo $agiota->id; ?>" data-parent="#accordion">
+                            <div class="card-body d-flex">
+                                <img src="<?php echo $agiota->url; ?>" class="img-thumbnail mr-3" alt="Foto do Agiota" width="80">
+                                <div>
+                                    <p>Detalhes adicionais sobre <?php echo $agiota->nome; ?></p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
             <?php
+                }
             }
             ?>
         </div>
+    </div>
     </div>
 
     <!-- Navbar fixada embaixo -->

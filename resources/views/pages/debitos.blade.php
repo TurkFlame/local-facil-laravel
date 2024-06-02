@@ -98,27 +98,32 @@
             <table class="table table-dark table-bordered text-center">
                 <thead>
                     <tr>
-                        <th scope="col">Valor</th>
+                        <th scope="col">Valor Total</th>
                         <th scope="col">Parcelas</th>
                         <th scope="col">Data para pagamento</th>
                     </tr>
                 </thead>
+                <?php
+
+                use App\Http\Controllers\UserDividasController;
+
+                $userDividasController = new UserDividasController;
+                $listaDividas = $userDividasController->getDividasByUserId(session()->get('id'));
+                ?>
                 <tbody>
-                    <tr>
-                        <td>R$ 10.000,00</td>
-                        <td>12</td>
-                        <td>30/06/2024</td>
-                    </tr>
-                    <tr>
-                        <td>R$ 5.000,00</td>
-                        <td>6</td>
-                        <td>30/06/2024</td>
-                    </tr>
-                    <tr>
-                        <td>R$ 20.000,00</td>
-                        <td>24</td>
-                        <td>30/06/2024</td>
-                    </tr>
+                    <?php if (empty($listaDividas)) : ?>
+                        <tr>
+                            <td colspan="3">echo Você não possui débitos no momento.</td>
+                        </tr>
+                    <?php else : ?>
+                        <?php foreach ($listaDividas as $divida) : ?>
+                            <tr>
+                                <td><?php echo "R$ " . $divida->valor_total; ?></td>
+                                <td><?php echo $divida->quantidade_parcelas; ?></td>
+                                <td><?php echo date('d/m/Y', strtotime($divida->data_pagamento)); ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </tbody>
             </table>
         </div>

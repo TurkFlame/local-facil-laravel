@@ -29,6 +29,11 @@ class UserDividasController extends Controller
         );
     }
 
+    public function getDividasByUserId($user_id)
+    {
+        return UserDividasModel::select()->where('user_id', $user_id)->get();
+    }
+
     protected function createDataPattern($agiota_id, $valor_total, $quant_parcelas, $juros, $data_pagamento)
     {
         // Directly return the data array without generating an 'id'. Let Eloquent handle ID generation.
