@@ -88,6 +88,7 @@
 
     <script>
         var map;
+        var markers = [];
 
         function buscarMapa(id) {
             if (navigator.geolocation) {
@@ -125,10 +126,15 @@
                                     iconAnchor: [25, 50],
                                     popupAnchor: [0, -50]
                                 });
-                                L.marker([lat + randomLatOffset, lon + randomLonOffset], {
-                                    icon: icon
+                                var marker = L.marker([lat + randomLatOffset, lon + randomLonOffset], {
+                                    icon: icon,
+                                    draggable: true // torna o marcador arrastável
                                 }).addTo(map).bindPopup(criarPopup(agiota.id, agiota.url, agiota.nome, Math.floor(Math.random() * 5) + 1), agiota.favorito);
+                                markers.push(marker); // adiciona o marcador ao array de marcadores
                             }
+
+                            // Inicia a animação dos marcadores
+                            animateMarkers();
                         },
                         error: function(xhr, status, error) {
                             console.error(error);
@@ -151,17 +157,27 @@
         function criarPopup(id, url, nome, favorito) {
             var popupContent = `
         <div>
-        <img src="${url}" alt="${nome}" width="150" height="150">
-        <br>
+            <img src="${url}" alt="${nome}" width="150" height="150">
+            <br>
             <label><b>Nome: </b>${nome}</label>
-            
         </div>
     `;
             return popupContent;
         }
 
+        function animateMarkers() {
+            markers.forEach(function(marker) {
+                setInterval(function() {
+                    var latlng = marker.getLatLng();
+                    var newLatlng = L.latLng(latlng.lat + (Math.random() - 0.5) * 0.01, latlng.lng + (Math.random() - 0.5) * 0.01);
+                    marker.setLatLng(newLatlng);
+                }, 7000); // ajuste o intervalo conforme necessário
+            });
+        }
+
         document.addEventListener("DOMContentLoaded", buscarMapa);
     </script>
+
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
