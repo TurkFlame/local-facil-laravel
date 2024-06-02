@@ -63,7 +63,7 @@
         }
 
         .btn-final {
-            border-radius: 0 6px 6px 0 !important;
+            border-radius: 0 6px 6px 0 !important ;
         }
 
         label,
