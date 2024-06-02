@@ -5,6 +5,7 @@ use App\Http\Controllers\Login;
 use App\Http\Controllers\Register;
 use App\Http\Middleware\EnsureSessionIsOpened;
 use App\Providers\Provider;
+use App\Http\Controllers\UserDividasController;
 
 Route::post('/login', [Login::class, 'index']);
 Route::get('/login', function () {
@@ -38,4 +39,6 @@ Route::middleware([EnsureSessionIsOpened::class])->group(function () {
     Route::get('/debitos', function () {
         return view('pages.debitos');
     });
+
+    Route::post('/dividas', [UserDividasController::class, 'criarDivida']);
 });

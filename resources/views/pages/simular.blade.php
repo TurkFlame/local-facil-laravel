@@ -8,10 +8,12 @@
     <title>Simulação de Empréstimo</title>
 
     <!-- Folha de Estilo do Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
     <!-- Folha de Estilo do Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+        integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
     <!-- Importar a fonte Roboto do Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
@@ -75,14 +77,16 @@
     <!-- Card com Inputs -->
     <div class="p-3 w-75 mx-auto">
         <h3>Simulação de empréstimo</h3>
-        <form id="loan-form">
+        <form id="loan-form" action="/dividas" method="post">
+            @csrf
             <!-- Input de Valor -->
             <div class="mt-5 form-row align-items-center">
                 <div class="col-md-3">
                     <label for="loan-amount">Valor do Empréstimo</label>
                 </div>
                 <div class="col-md-9">
-                    <input type="number" class="form-control" id="loan-amount" placeholder="Informe o valor que você deseja" required>
+                    <input type="number" name="valor_total" class="form-control" id="loan-amount"
+                        placeholder="Informe o valor que você deseja" required>
                 </div>
             </div>
             <!-- Input de Parcelas -->
@@ -91,9 +95,34 @@
                     <label for="loan-installments">Número de Parcelas</label>
                 </div>
                 <div class="col-md-9">
-                    <input type="number" class="form-control" id="loan-installments" placeholder="Informe quantas parcelas você deseja pagar" required>
+                    <input type="number" name="quant_parcelas" class="form-control" id="loan-installments"
+                        placeholder="Informe quantas parcelas você deseja pagar" required>
                 </div>
             </div>
+
+            <div class="form-row align-items-center mt-3">
+                <div class="col-md-3">
+                    <label for="loan-installments">Agiotas</label>
+                </div>
+                <div class="col-md-9">
+                    <input type="number" name="quant_parcelas" class="form-control" id="loan-installments"
+                        placeholder="Seleciona o agiota" required>
+                        <Select>
+                            <!-- Percorrer os agiotas, e fazer um option para cada um usando um foreach -->
+                        </Select>
+                </div>
+            </div>
+
+            <div class="form-row align-items-center mt-3">
+                <div class="col-md-3">
+                    <label for="loan-installments">Data Pagamento</label>
+                </div>
+                <div class="col-md-9">
+                    <input type="date" name="data_pagamento" class="form-control" id="loan-installments"
+                        placeholder="Informe quando você deseja realizar o pagamento" required>
+                </div>
+            </div>
+
 
             <!-- Alinhar o botão à direita -->
             <div class="text-right mt-3">
@@ -107,7 +136,8 @@
                         <label for="total-loan-amount">Valor Total do Empréstimo</label>
                     </div>
                     <div class="col-md-9">
-                        <input type="text" class="form-control" id="total-loan-amount" placeholder="Valor total do empréstimo" disabled>
+                        <input type="text" class="form-control" id="total-loan-amount"
+                            placeholder="Valor total do empréstimo" disabled>
                     </div>
                 </div>
                 <div class="form-row align-items-center mt-3">
@@ -115,7 +145,8 @@
                         <label for="installment-value">Valor por Parcela</label>
                     </div>
                     <div class="col-md-9">
-                        <input type="text" class="form-control" id="installment-value" placeholder="Valor de cada parcela" disabled>
+                        <input type="text" class="form-control" id="installment-value"
+                            placeholder="Valor de cada parcela" disabled>
                     </div>
                 </div>
                 <div class="form-row align-items-center mt-3">
@@ -123,7 +154,8 @@
                         <label class="label-imposto" for="interest-rate">Juros</label>
                     </div>
                     <div class="col-md-9">
-                        <input type="text" class="form-control" id="interest-rate" placeholder="Juros" disabled>
+                        <input type="text" class="form-control" name="juros" id="interest-rate" placeholder="Juros"
+                            disabled>
                     </div>
                 </div>
                 <div class="form-row align-items-center mt-3">
@@ -182,7 +214,7 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             // Função para calcular o empréstimo
             function calcularEmprestimo() {
                 // Obter valores dos inputs
