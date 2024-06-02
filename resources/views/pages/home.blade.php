@@ -12,9 +12,6 @@
     <!-- Folha de Estilo do Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-    <!-- Estilo personalizado -->
-    <link rel="stylesheet" href="estilo/estilo.css">
-
     <!-- Folha de Estilo do Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 
@@ -92,56 +89,76 @@
     <script>
         var map;
 
-        function favoritar(id) {
-            // Seu código para favoritar um agiota
-        }
-
         function buscarMapa(id) {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
                     var lat = position.coords.latitude;
                     var lon = position.coords.longitude;
 
-                    // Limpa o mapa e os marcadores antes de fazer uma nova busca
                     if (map) {
                         map.remove();
                     }
 
-                    // Cria um novo mapa com o Leaflet
                     map = L.map('map').setView([lat, lon], 15);
                     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                         maxZoom: 19,
                     }).addTo(map);
                     L.marker([lat, lon]).addTo(map).bindPopup('Você está aqui!');
 
+                    // Faz uma solicitação AJAX para obter os dados dos agiotas
+                    $.ajax({
+                        url: '/getAgiotas', // Endpoint que você criou no servidor
+                        method: 'GET',
+                        success: function(data) {
+                            var agiotaList = shuffleArray(data); // Embaralha os dados dos agiotas recebidos
 
-                    // Adiciona entre 1 e 5 marcadores com ícones personalizados
-                    var numMarkers = Math.floor(Math.random() * 5) + 1; // Entre 1 e 5 marcadores
-                    for (var i = 0; i < numMarkers; i++) {
-                        /*var agiota = agiotaData[i];
-                        var randomImageUrl = agiota.url;*/
+                            // Adiciona marcadores ao mapa
+                            var numMarkers = Math.floor(Math.random() * 5) + 1;
+                            for (var i = 0; i < numMarkers; i++) {
+                                var agiota = agiotaList[i];
+                                var randomLatOffset = (Math.random() - 0.5) / 111.2 * 5;
+                                var randomLonOffset = (Math.random() - 0.5) / (111.2 * Math.cos(lat * Math.PI / 180)) * 5;
 
-                        var randomLatOffset = (Math.random() - 0.5) / 111.2 * 5; // Aproximadamente 111.2 km por grau de latitude
-                        var randomLonOffset = (Math.random() - 0.5) / (111.2 * Math.cos(lat * Math.PI / 180)) * 5; // Aproximadamente 111.2 km por grau de longitude
-
-                        var icon = L.icon({
-                            /*iconUrl: randomImageUrl,*/
-                            iconSize: [50, 50], // Tamanho do ícone
-                            iconAnchor: [25, 50], // Ponto de ancoragem do ícone
-                            popupAnchor: [0, -50] // Ponto de ancoragem do popup
-                        });
-                        L.marker([lat + randomLatOffset, lon + randomLonOffset], {
-                                icon: icon
-                            }).addTo(map)
-                            /*.bindPopup(criarPopup(agiota.id, randomImageUrl, agiota.nome, Math.floor(Math.random() * 5) + 1), agiota.favorito);*/
-                    }
+                                var icon = L.icon({
+                                    iconUrl: agiota.url,
+                                    iconSize: [50, 50],
+                                    iconAnchor: [25, 50],
+                                    popupAnchor: [0, -50]
+                                });
+                                L.marker([lat + randomLatOffset, lon + randomLonOffset], {
+                                    icon: icon
+                                }).addTo(map).bindPopup(criarPopup(agiota.id, agiota.url, agiota.nome, Math.floor(Math.random() * 5) + 1), agiota.favorito);
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(error);
+                        }
+                    });
                 });
             } else {
                 alert('Seu navegador não suporta Geolocalização.');
             }
         }
 
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
 
+        function criarPopup(id, url, nome, favorito) {
+            var popupContent = `
+        <div>
+        <img src="${url}" alt="${nome}" width="150" height="150">
+        <br>
+            <label><b>Nome: </b>${nome}</label>
+            
+        </div>
+    `;
+            return popupContent;
+        }
 
         document.addEventListener("DOMContentLoaded", buscarMapa);
     </script>

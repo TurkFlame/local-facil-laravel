@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AgiotaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Login;
 use App\Http\Controllers\Register;
@@ -41,4 +42,7 @@ Route::middleware([EnsureSessionIsOpened::class])->group(function () {
     });
 
     Route::post('/dividas', [UserDividasController::class, 'criarDivida']);
+
+    Route::get('/getAgiotas', [AgiotaController::class, 'getAgiotasReturnJson']);
+
 });
