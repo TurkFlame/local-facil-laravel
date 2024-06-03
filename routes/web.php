@@ -41,6 +41,11 @@ Route::middleware([EnsureSessionIsOpened::class])->group(function () {
         return view('pages.debitos');
     });
 
+    
+    Route::get('/trabalhe-conosco', function () {
+        return view('pages.trabalheConosco');
+    });
+
     Route::post('/dividas', [UserDividasController::class, 'criarDivida']);
 
     Route::get('/getAgiotas', [AgiotaController::class, 'getAgiotasReturnJson']);
