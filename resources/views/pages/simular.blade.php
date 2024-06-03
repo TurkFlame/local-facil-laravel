@@ -1,10 +1,3 @@
-<?php
-$telaAtual = 'simular';
-@include('barra_navegacao')
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -156,6 +149,11 @@ $telaAtual = 'simular';
                 <a href="/debitos">
                     <button type="button" class="btn btn-primary mb-2">
                         <i class="fas fa-credit-card mr-1"></i> Débitos
+                    </button>
+                </a>
+                <a href="/trabalhe-conosco">
+                    <button type="button" class="btn btn-warning mb-2">
+                        <i class="fas fa-users mr-1"></i> Trabalhe conosco
                     </button>
                 </a>
                 <a href="/home">

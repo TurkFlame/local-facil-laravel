@@ -1,9 +1,3 @@
-<?php
-$telaAtual = 'debitos';
-@include('barra_navegacao')
-?>
-
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -74,6 +68,11 @@ $telaAtual = 'debitos';
                 <a href="/simular">
                     <button type="button" class="btn btn-secondary mb-2">
                         <i class="fas fa-handshake mr-1"></i> Simular
+                    </button>
+                </a>
+                <a href="/trabalhe-conosco">
+                    <button type="button" class="btn btn-warning mb-2">
+                        <i class="fas fa-users mr-1"></i> Trabalhe conosco
                     </button>
                 </a>
                 <a href="/home">

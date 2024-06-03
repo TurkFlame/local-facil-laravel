@@ -1,9 +1,3 @@
-<?php
-$telaAtual = 'home';
-@include('barra_navegacao')
-?>
-
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -41,10 +35,15 @@ $telaAtual = 'home';
                 </button>
             </a>
             <a href="/debitos">
-                <button type="button" class="btn btn-primary btn-final mb-2">
+                <button type="button" class="btn btn-primary mb-2">
                     <i class="fas fa-credit-card mr-1"></i> Débitos
                 </button>
             </a>
+            <a href="/trabalhe-conosco">
+                    <button type="button" class="btn btn-warning btn-final mb-2">
+                        <i class="fas fa-users mr-1"></i> Trabalhe conosco
+                    </button>
+                </a>
 
         </form>
     </div>

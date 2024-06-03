@@ -1,10 +1,3 @@
-<?php
-$telaAtual = 'agiota';
-@include('barra_navegacao')
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -92,7 +85,7 @@ $telaAtual = 'agiota';
                     <label id="terms-label" class="termos">Termos de serviço</label>
                 </div>
 
-                <div class="col-md-9">  
+                <div class="col-md-9">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="termos_servico" id="termos_servico" required>
                         <label class="form-check-label" for="termos_servico">Aceitar termos de serviço</label>
@@ -114,6 +107,11 @@ $telaAtual = 'agiota';
                     <i class="fas fa-star mr-1"></i> Favoritos
                 </button>
             </a>
+            <a href="/simular">
+                <button type="button" class="btn btn-secondary mb-2">
+                    <i class="fas fa-handshake mr-1"></i> Simular
+                </button>
+            </a>
             <a href="/debitos">
                 <button type="button" class="btn btn-primary mb-2">
                     <i class="fas fa-credit-card mr-1"></i> Débitos
@@ -124,7 +122,6 @@ $telaAtual = 'agiota';
                     <i class="fas fa-map mr-1"></i> Mapa
                 </button>
             </a>
-
         </form>
     </div>
 

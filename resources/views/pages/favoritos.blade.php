@@ -1,9 +1,3 @@
-<?php
-$telaAtual = 'favoritos';
-@include('barra_navegacao')
-?>
-
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -52,7 +46,7 @@ $telaAtual = 'favoritos';
                             </h5>
                             <div data-toggle="tooltip" title="Desfavoritar">
                                 <button type="button" class="btn btn-danger btn-desfavoritar" onclick="<?php
-                                        $userFavoriteAgiotasController->desfavoritarAgiota($agiota->id, session()->get('id')) ?>">
+                                                                                                        $userFavoriteAgiotasController->desfavoritarAgiota($agiota->id, session()->get('id')) ?>">
                                     <i class="fas fa-times-circle"></i>
                                 </button>
                                 <i class="fas fa-chevron-down ml-3" id="icon-<?php echo $agiota->id; ?>"></i>
@@ -93,7 +87,11 @@ $telaAtual = 'favoritos';
                     <i class="fas fa-credit-card mr-1"></i> Débitos
                 </button>
             </a>
-
+            <a href="/trabalhe-conosco">
+                <button type="button" class="btn btn-warning mb-2">
+                    <i class="fas fa-users mr-1"></i> Trabalhe conosco
+                </button>
+            </a>
             <a href="/home">
                 <button type="button" class="btn btn-success mb-2 btn-final">
                     <i class="fas fa-map mr-1"></i> Mapa
