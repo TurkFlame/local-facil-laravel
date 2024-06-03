@@ -16,6 +16,15 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 
     <link rel="stylesheet" href="\css\app.css">
+
+    <style>
+        .btn {
+            background-color: #212529;
+            color: #fff;
+            border: none;
+            border-radius: 0;
+        }
+    </style>
 </head>
 
 <body class="bg-dark">
@@ -40,10 +49,10 @@
                 </button>
             </a>
             <a href="/trabalhe-conosco">
-                    <button type="button" class="btn btn-warning btn-final mb-2">
-                        <i class="fas fa-users mr-1"></i> Trabalhe conosco
-                    </button>
-                </a>
+                <button type="button" class="btn btn-light btn-final mb-2">
+                    <i class="fas fa-users mr-1"></i> Trabalhe conosco
+                </button>
+            </a>
 
         </form>
     </div>
