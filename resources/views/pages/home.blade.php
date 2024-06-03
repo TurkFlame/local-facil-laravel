@@ -24,6 +24,10 @@
             border: none;
             border-radius: 0;
         }
+
+        i{
+            color: #fff;
+        }
     </style>
 </head>
 
@@ -49,7 +53,7 @@
                 </button>
             </a>
             <a href="/trabalhe-conosco">
-                <button type="button" class="btn btn-light btn-final mb-2">
+                <button type="button" class="btn btn-info btn-final mb-2">
                     <i class="fas fa-users mr-1"></i> Trabalhe conosco
                 </button>
             </a>
