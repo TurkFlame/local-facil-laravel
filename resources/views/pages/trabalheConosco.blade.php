@@ -24,7 +24,7 @@
     <!-- Card com Inputs -->
     <div class="p-3 w-75 mx-auto">
         <h3>Trabalhe conosco</h3>
-        <form id="loan-form" action="/trabalhe-conosco" method="post">
+        <form id="loan-form" action="/cadastrar-agiota" method="post">
             @csrf
             <!-- Input de Nome -->
             <div class="mt-5 form-row align-items-center">

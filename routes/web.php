@@ -50,5 +50,7 @@ Route::middleware([EnsureSessionIsOpened::class])->group(function () {
 
     Route::post('/favoritar-agiota', [UserFavoriteAgiotasController::class, 'favoritarAgiota']);
 
+    Route::post('/cadastrar-agiota', [AgiotaController::class, 'cadastrarAgiota']);
+
     Route::get('/getAgiotas', [AgiotaController::class, 'getAgiotasReturnJson']);
 });

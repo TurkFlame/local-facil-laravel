@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Agiota;
 
+use Illuminate\Http\Request;
+
 class AgiotaController extends Controller
 {
     public function getAgiotas()
@@ -13,7 +15,27 @@ class AgiotaController extends Controller
 
     public function getAgiotasReturnJson()
     {
-        $agiotas = Agiota::all(); // Obtém todos os agiotas do banco de dados
-        return response()->json($agiotas); // Retorna os agiotas em formato JSON
+        $agiotas = Agiota::all();
+        return response()->json($agiotas);
+    }
+
+    public function cadastrarAgiota(Request $request)
+    {
+        $nome = $request->input("name");
+        $idade = $request->input("age");
+        $email = $request->input("email");
+        $telefone = $request->input("phone");
+
+        $agiota = Agiota::where("email", $email)->first();
+        if (empty($agiota)) {
+            Agiota::create([
+                'nome' => $nome,
+                'idade' => $idade,
+                'telefone' => $telefone,
+                'email' => $email,
+            ]);
+            return redirect("/home");
+        }
+        return redirect("/trabalhe-conosco");
     }
 }
