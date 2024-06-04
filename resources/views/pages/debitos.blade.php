@@ -16,78 +16,7 @@
     <!-- Importar a fonte Roboto do Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
-
-    <style>
-        :root {
-            --main-font: 'Roboto', sans-serif;
-        }
-
-        html,
-        body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            font-family: var(--main-font);
-            color: #fff;
-        }
-
-        .label-imposto {
-            color: gray;
-        }
-
-        #input-container {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background-color: transparent;
-            padding: 10px 0;
-            display: flex;
-            justify-content: center;
-            z-index: 999;
-        }
-
-        #input-container .btn {
-            margin-right: 0;
-        }
-
-        .btn {
-            background-color: #fff;
-            color: black;
-            border: none;
-            border-radius: 0 !important;
-        }
-
-        .custom-btn {
-            border-radius: 6px !important;
-        }
-
-        .btn-inicial {
-            border-radius: 6px 0 0 6px !important;
-        }
-
-        .btn-final {
-            border-radius: 0 6px 6px 0 !important;
-        }
-
-        .table-container {
-            margin-top: 20px;
-        }
-
-        .table {
-            color: #fff;
-        }
-
-        .bg-dark {
-            background-color: #343a40 !important;
-        }
-
-
-        .table {
-            border-radius: 10px;
-            overflow: hidden;
-        }
-    </style>
+    <link rel="stylesheet" href="\css\app.css">
 </head>
 
 <body class="bg-dark">
@@ -98,27 +27,32 @@
             <table class="table table-dark table-bordered text-center">
                 <thead>
                     <tr>
-                        <th scope="col">Valor</th>
+                        <th scope="col">Valor Total</th>
                         <th scope="col">Parcelas</th>
                         <th scope="col">Data para pagamento</th>
                     </tr>
                 </thead>
+                <?php
+
+                use App\Http\Controllers\UserDividasController;
+
+                $userDividasController = new UserDividasController;
+                $listaDividas = $userDividasController->getDividasByUserId(session()->get('id'));
+                ?>
                 <tbody>
-                    <tr>
-                        <td>R$ 10.000,00</td>
-                        <td>12</td>
-                        <td>30/06/2024</td>
-                    </tr>
-                    <tr>
-                        <td>R$ 5.000,00</td>
-                        <td>6</td>
-                        <td>30/06/2024</td>
-                    </tr>
-                    <tr>
-                        <td>R$ 20.000,00</td>
-                        <td>24</td>
-                        <td>30/06/2024</td>
-                    </tr>
+                    <?php if (empty($listaDividas)) : ?>
+                        <tr>
+                            <td colspan="3">echo Você não possui débitos no momento.</td>
+                        </tr>
+                    <?php else : ?>
+                        <?php foreach ($listaDividas as $divida) : ?>
+                            <tr>
+                                <td><?php echo "R$ " . $divida->valor_total; ?></td>
+                                <td><?php echo $divida->quantidade_parcelas; ?></td>
+                                <td><?php echo date('d/m/Y', strtotime($divida->data_pagamento)); ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </tbody>
             </table>
         </div>
@@ -134,6 +68,11 @@
                 <a href="/simular">
                     <button type="button" class="btn btn-secondary mb-2">
                         <i class="fas fa-handshake mr-1"></i> Simular
+                    </button>
+                </a>
+                <a href="/trabalhe-conosco">
+                    <button type="button" class="btn btn-info mb-2">
+                        <i class="fas fa-users mr-1"></i> Trabalhe conosco
                     </button>
                 </a>
                 <a href="/home">

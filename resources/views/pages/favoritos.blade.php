@@ -13,74 +13,7 @@
     <!-- Folha de Estilo do Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-    <style>
-        :root {
-            --main-font: 'Roboto', sans-serif;
-        }
-
-        html,
-        body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            font-family: var(--main-font);
-            color: #fff;
-        }
-
-        .label-imposto {
-            color: gray;
-        }
-
-        #input-container {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background-color: transparent;
-            padding: 10px 0;
-            display: flex;
-            justify-content: center;
-            z-index: 999;
-        }
-
-        #input-container .btn {
-            margin-right: 0;
-        }
-
-        .btn {
-            background-color: #fff;
-            color: black;
-            border: none;
-            border-radius: 0 !important;
-        }
-
-        .custom-btn {
-            border-radius: 6px !important;
-        }
-
-        .btn-inicial {
-            border-radius: 6px 0 0 6px !important;
-        }
-
-        .btn-final {
-            border-radius: 0 6px 6px 0 !important;
-        }
-
-        label,
-        p,
-        i {
-            color: black;
-        }
-
-        .card {
-            margin-bottom: 10px;
-        }
-
-        .btn-desfavoritar {
-            border-radius: 8px !important;
-            background-color: #ee0e0e !important;
-        }
-    </style>
+    <link rel="stylesheet" href="\css\app.css">
 </head>
 
 <body class="bg-dark">
@@ -91,41 +24,54 @@
 
         <div id="accordion">
             <?php
-            // Dados fictícios
-            $listaFavoritos = [
-                (object) ['id' => 1, 'nome' => 'João Silva', 'url' => 'https://via.placeholder.com/80'],
-                (object) ['id' => 2, 'nome' => 'Maria Santos', 'url' => 'https://via.placeholder.com/80'],
-                (object) ['id' => 3, 'nome' => 'Carlos Oliveira', 'url' => 'https://via.placeholder.com/80']
-            ];
 
-            foreach ($listaFavoritos as $agiota) {
+            use App\Http\Controllers\UserFavoriteAgiotasController;
+            use App\Models\Agiota;
+
+            $userFavoriteAgiotasController = new UserFavoriteAgiotasController;
+
+            $listaFavoritos = $userFavoriteAgiotasController->getFavoritesAgiotasByUserId(session()->get('id'));
+
+            if (empty($listaFavoritos)) {
+                echo "<div class='card'><div class='card-body'><p>Não há agiotas favoritos.</p></div></div>";
+            } else {
+                foreach ($listaFavoritos as $agiota) {
+                    $agiotaModel = new Agiota;
+                    $agiota = $agiotaModel->getAgiotaById($agiota->agiota_id);
             ?>
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center" id="heading<?php echo $agiota->id; ?>" data-toggle="collapse" data-target="#collapse<?php echo $agiota->id; ?>" aria-expanded="true" aria-controls="collapse<?php echo $agiota->id; ?>">
-                        <h5 class="mb-0">
-                            <label><?php echo $agiota->nome; ?></label>
-                        </h5>
-                        <div data-toggle="tooltip" title="Desfavoritar">
-                            <button type="button" class="btn btn-danger btn-desfavoritar" onclick="desfavoritar(<?php echo $agiota->id; ?>)">
-                                <i class="fas fa-times-circle"></i>
-                            </button>
-                            <i class="fas fa-chevron-down ml-3" id="icon-<?php echo $agiota->id; ?>"></i>
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center" id="heading<?php echo $agiota->id; ?>" data-toggle="collapse" data-target="#collapse<?php echo $agiota->id; ?>" aria-expanded="true" aria-controls="collapse<?php echo $agiota->id; ?>">
+                            <h5 class="mb-0">
+                                <p><?php echo $agiota->nome; ?></p>
+                            </h5>
+                            <div data-toggle="tooltip" title="Desfavoritar">
+                                <button type="button" class="btn btn-danger btn-desfavoritar" onclick="<?php
+                                                                                                        $userFavoriteAgiotasController->desfavoritarAgiota($agiota->id, session()->get('id')) ?>">
+                                    <i class="fas fa-times-circle"></i>
+                                </button>
+                                <i class="fas fa-chevron-down ml-3" id="icon-<?php echo $agiota->id; ?>"></i>
+                            </div>
                         </div>
-                    </div>
 
-                    <div id="collapse<?php echo $agiota->id; ?>" class="collapse" aria-labelledby="heading<?php echo $agiota->id; ?>" data-parent="#accordion">
-                        <div class="card-body d-flex">
-                            <img src="<?php echo $agiota->url; ?>" class="img-thumbnail mr-3" alt="Foto do Agiota" width="80">
-                            <div>
-                                <p>Detalhes adicionais sobre <?php echo $agiota->nome; ?></p>
+                        <div id="collapse<?php echo $agiota->id; ?>" class="collapse" aria-labelledby="heading<?php echo $agiota->id; ?>" data-parent="#accordion">
+                            <div class="card-body d-flex">
+                                <img src="<?php echo $agiota->url; ?>" class="img-thumbnail mr-3" alt="Foto do Agiota" width="200">
+                                <div>
+                                    <p><b>Nome: </b> <?php echo $agiota->nome; ?></p>
+                                    <p><b>Idade: </b> <?php echo $agiota->idade; ?></p>
+                                    <p><b>E-mail: </b> <?php echo $agiota->email; ?></p>
+                                    <p><b>Telefone: </b> <?php echo $agiota->telefone; ?></p>
+                                    <p><b>Empréstimos já realizados: </b> <?php echo $agiota->emprestimo; ?></p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
             <?php
+                }
             }
             ?>
         </div>
+    </div>
     </div>
 
     <!-- Navbar fixada embaixo -->
@@ -141,7 +87,11 @@
                     <i class="fas fa-credit-card mr-1"></i> Débitos
                 </button>
             </a>
-
+            <a href="/trabalhe-conosco">
+                <button type="button" class="btn btn-info mb-2">
+                    <i class="fas fa-users mr-1"></i> Trabalhe conosco
+                </button>
+            </a>
             <a href="/home">
                 <button type="button" class="btn btn-success mb-2 btn-final">
                     <i class="fas fa-map mr-1"></i> Mapa

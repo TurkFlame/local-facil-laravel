@@ -8,81 +8,34 @@
     <title>Simulação de Empréstimo</title>
 
     <!-- Folha de Estilo do Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
     <!-- Folha de Estilo do Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+        integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
     <!-- Importar a fonte Roboto do Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
+    <link rel="stylesheet" href="\css\app.css">
 
-    <style>
-        :root {
-            --main-font: 'Roboto', sans-serif;
-        }
-
-        html,
-        body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            font-family: var(--main-font);
-            color: #fff;
-        }
-
-        .label-imposto {
-            color: gray;
-        }
-
-        #input-container {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background-color: transparent;
-            padding: 10px 0;
-            display: flex;
-            justify-content: center;
-            z-index: 999;
-        }
-
-        #input-container .btn {
-            margin-right: 0;
-        }
-
-        .btn {
-            background-color: #fff;
-            color: black;
-            border: none;
-            border-radius: 0 !important;
-        }
-
-        .custom-btn {
-            border-radius: 6px !important;
-        }
-
-        .btn-inicial {
-            border-radius: 6px 0 0 6px !important;
-        }
-
-        .btn-final {
-            border-radius: 0 6px 6px 0 !important;
-        }
-    </style>
+</head>
 
 <body class="bg-dark">
     <!-- Card com Inputs -->
     <div class="p-3 w-75 mx-auto">
         <h3>Simulação de empréstimo</h3>
-        <form id="loan-form">
+        <form id="loan-form" action="/simular" method="post">
+            @csrf
             <!-- Input de Valor -->
             <div class="mt-5 form-row align-items-center">
                 <div class="col-md-3">
                     <label for="loan-amount">Valor do Empréstimo</label>
                 </div>
                 <div class="col-md-9">
-                    <input type="number" class="form-control" id="loan-amount" placeholder="Informe o valor que você deseja" required>
+                    <input type="number" name="valor_total" class="form-control" id="loan-amount"
+                        placeholder="Informe o valor que você deseja" required>
                 </div>
             </div>
             <!-- Input de Parcelas -->
@@ -91,9 +44,45 @@
                     <label for="loan-installments">Número de Parcelas</label>
                 </div>
                 <div class="col-md-9">
-                    <input type="number" class="form-control" id="loan-installments" placeholder="Informe quantas parcelas você deseja pagar" required>
+                    <input type="number" name="quant_parcelas" class="form-control" id="loan-installments"
+                        placeholder="Informe quantas parcelas você deseja pagar" required>
                 </div>
             </div>
+
+            <div class="form-row align-items-center mt-3">
+                <div class="col-md-3">
+                    <label for="loan-agiota">Agiotas</label>
+                </div>
+                <div class="col-md-9">
+                    <select name="agiota_id" id="agiota_id" class="form-control" aria-label="Default select example">
+                        <?php
+                            use App\Http\Controllers\AgiotaController;
+
+                            $agiotaController = new AgiotaController;
+                            $listaAgiotas = $agiotaController->getAgiotas();
+                        ?>
+                        <option disabled selected> -- select an option -- </option>
+                        @foreach ($listaAgiotas as $agiota)
+                            <option value={!!$agiota->id!!}>
+                                {!!$agiota->nome!!}
+                            </option>";
+                        @endforeach
+
+                        ?>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row align-items-center mt-3">
+                <div class="col-md-3">
+                    <label for="loan-installments">Data Pagamento</label>
+                </div>
+                <div class="col-md-9">
+                    <input type="date" name="data_pagamento" class="form-control" id="loan-installments"
+                        placeholder="Informe quando você deseja realizar o pagamento" required>
+                </div>
+            </div>
+
 
             <!-- Alinhar o botão à direita -->
             <div class="text-right mt-3">
@@ -107,7 +96,8 @@
                         <label for="total-loan-amount">Valor Total do Empréstimo</label>
                     </div>
                     <div class="col-md-9">
-                        <input type="text" class="form-control" id="total-loan-amount" placeholder="Valor total do empréstimo" disabled>
+                        <input type="text" class="form-control" id="total-loan-amount"
+                            placeholder="Valor total do empréstimo" disabled>
                     </div>
                 </div>
                 <div class="form-row align-items-center mt-3">
@@ -115,7 +105,8 @@
                         <label for="installment-value">Valor por Parcela</label>
                     </div>
                     <div class="col-md-9">
-                        <input type="text" class="form-control" id="installment-value" placeholder="Valor de cada parcela" disabled>
+                        <input type="text" class="form-control" id="installment-value"
+                            placeholder="Valor de cada parcela" disabled>
                     </div>
                 </div>
                 <div class="form-row align-items-center mt-3">
@@ -123,7 +114,7 @@
                         <label class="label-imposto" for="interest-rate">Juros</label>
                     </div>
                     <div class="col-md-9">
-                        <input type="text" class="form-control" id="interest-rate" placeholder="Juros" disabled>
+                        <input type="text" class="form-control" name="juros" id="interest-rate" placeholder="Juros">
                     </div>
                 </div>
                 <div class="form-row align-items-center mt-3">
@@ -151,38 +142,44 @@
                     </div>
                 </div>
                 <!-- Botão de Enviar -->
-                <div class="text-right mt-3">
+                <div class="text-right mt-3 mb-5">
                     <button type="submit" class="btn btn-success custom-btn">Salvar</button>
                 </div>
             </div>
-
-            <!-- Barra de navegação -->
-            <div id="input-container">
-                <form class="form-inline">
-                    <a href="/favoritos">
-                        <button type="button" class="btn btn-danger mb-2 btn-inicial">
-                            <i class="fas fa-star mr-1"></i> Favoritos
-                        </button>
-                    </a>
-                    <a href="/debitos">
-                        <button type="button" class="btn btn-primary mb-2">
-                            <i class="fas fa-credit-card mr-1"></i> Débitos
-                        </button>
-                    </a>
-                    <a href="/home">
-                        <button type="button" class="btn btn-success mb-2 btn-final">
-                            <i class="fas fa-map mr-1"></i> Mapa
-                        </button>
-                    </a>
-
-                </form>
-            </div>
         </form>
+
+        <!-- Barra de navegação -->
+        <div id="input-container">
+            <form class="form-inline">
+                <a href="/favoritos">
+                    <button type="button" class="btn btn-danger mb-2 btn-inicial">
+                        <i class="fas fa-star mr-1"></i> Favoritos
+                    </button>
+                </a>
+                <a href="/debitos">
+                    <button type="button" class="btn btn-primary mb-2">
+                        <i class="fas fa-credit-card mr-1"></i> Débitos
+                    </button>
+                </a>
+                <a href="/trabalhe-conosco">
+                    <button type="button" class="btn btn-info mb-2">
+                        <i class="fas fa-users mr-1"></i> Trabalhe conosco
+                    </button>
+                </a>
+                <a href="/home">
+                    <button type="button" class="btn btn-success mb-2 btn-final">
+                        <i class="fas fa-map mr-1"></i> Mapa
+                    </button>
+                </a>
+
+            </form>
+        </div>
+
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             // Função para calcular o empréstimo
             function calcularEmprestimo() {
                 // Obter valores dos inputs
