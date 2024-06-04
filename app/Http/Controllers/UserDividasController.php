@@ -9,19 +9,27 @@ class UserDividasController extends Controller
 {
     public function criarDivida(Request $request)
     {
-        $validatedData = $request->validate([
-            'agiota_id' => 'required|exists:agiotas,id',
-            'valor_total' => 'required|numeric',
-            'quant_parcelas' => 'required|integer|min:1',
-            'juros' => 'nullable|numeric',
-            'data_pagamento' => 'required|date'
-        ]);
+        $request_data = [
+            'agiota_id' => $request->input('agiota_id'),
+            'valor_total' => $request->input('valor_total'),
+            'quant_parcelas' => $request->input('quant_parcelas'),
+            'juros' => $request->input('juros'),
+            'data_pagamento' => $request->input('data_pagamento')
+        ];
 
-        $data = $this->createDataPattern($validatedData['agiota_id'], $validatedData['valor_total'], $validatedData['quant_parcelas'], $validatedData['juros'], $validatedData['data_pagamento']);
-        $this->createOrUpdateDivida($data);
+        $data = $this->createDataPattern($request_data['agiota_id'], $request_data['valor_total'], $request_data['quant_parcelas'], $request_data['juros'], $request_data['data_pagamento']);
+        $this->createDivida($data);
+        return redirect('/debitos');
     }
 
-    public function createOrUpdateDivida(array $data)
+    public function createDivida($data)
+    {
+        UserDividasModel::create(
+            $data
+        );
+    }
+
+    public function createOrUpdateDivida($data)
     {
         UserDividasModel::updateOrCreate(
             ['user_id' => $data['user_id'], 'agiota_id' => $data['agiota_id']],

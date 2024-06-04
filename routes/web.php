@@ -38,6 +38,8 @@ Route::middleware([EnsureSessionIsOpened::class])->group(function () {
         return view('pages.simular');
     });
 
+    Route::post('/simular', [UserDividasController::class, 'criarDivida']);
+    
     Route::get('/debitos', function () {
         return view('pages.debitos');
     });
@@ -46,7 +48,6 @@ Route::middleware([EnsureSessionIsOpened::class])->group(function () {
         return view('pages.trabalheConosco');
     });
 
-    Route::post('/dividas', [UserDividasController::class, 'criarDivida']);
 
     Route::post('/favoritar-agiota', [UserFavoriteAgiotasController::class, 'favoritarAgiota']);
 
