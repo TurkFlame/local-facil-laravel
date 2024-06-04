@@ -16,13 +16,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        Usuario::factory()->create([
-            'nome' => 'Braio',
-            'email' => 'braio@gmail.com',
-            'senha' => '$2y$10$lSkbGHK.2zz8VKwpZ8T1pOUlu0aJOx6RB7lNzv5nWRenjMGhANeiq',
-        ]);
 
         Agiota::factory()->create([
             'nome' => 'Da o pozo',
