@@ -18,7 +18,15 @@ class UserDividasController extends Controller
         ];
 
         $data = $this->createDataPattern($request_data['agiota_id'], $request_data['valor_total'], $request_data['quant_parcelas'], $request_data['juros'], $request_data['data_pagamento']);
-        return $this->createOrUpdateDivida($data);
+        $this->createDivida($data);
+        return redirect('/debitos');
+    }
+
+    public function createDivida($data)
+    {
+        UserDividasModel::create(
+            $data
+        );
     }
 
     public function createOrUpdateDivida($data)
