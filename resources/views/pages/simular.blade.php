@@ -168,7 +168,7 @@
 
                 <a href="/login">
                     <button type="button" class="btn btn-success mb-2 btn-final">
-                        <i class="fas fa-map mr-1"></i> Sair
+                        <i class="fas fa-arrow-circle-left  mr-1"></i> Sair
                     </button>
                 </a>
 
