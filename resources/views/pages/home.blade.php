@@ -17,6 +17,8 @@
 
     <link rel="stylesheet" href="\css\app.css">
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <style>
         .btn {
             background-color: #212529;
@@ -25,7 +27,7 @@
             border-radius: 0;
         }
 
-        i{
+        i {
             color: #fff;
         }
     </style>
@@ -33,7 +35,6 @@
 
 <body class="bg-dark">
     <div id="map"></div>
-
 
     <div class="input-container">
         <form class="form-inline">
@@ -57,13 +58,26 @@
                     <i class="fas fa-users mr-1"></i> Trabalhe conosco
                 </button>
             </a>
-
         </form>
     </div>
 
+    <?php
+    $userId = session()->get('id');
+    ?>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        // Configuração AJAX para incluir o token CSRF em todas as requisições
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
         var map;
         var markers = [];
+        var userId = <?= json_encode($userId); ?>;
 
         function buscarMapa(id) {
             if (navigator.geolocation) {
@@ -81,9 +95,8 @@
                     }).addTo(map);
                     L.marker([lat, lon]).addTo(map).bindPopup('Você está aqui!');
 
-                    // Faz uma solicitação AJAX para obter os dados dos agiotas
                     $.ajax({
-                        url: '/getAgiotas', // Endpoint que você criou no servidor
+                        url: '/getAgiotas',
                         method: 'GET',
                         success: function(data) {
                             var agiotaList = shuffleArray(data); // Embaralha os dados dos agiotas recebidos
@@ -135,9 +148,29 @@
             <img src="${url}" alt="${nome}" width="150" height="150">
             <br>
             <label><b>Nome: </b>${nome}</label>
+            <button class="btn btn-danger btn-sm text-right" onclick="favoritar(${id}, ${userId})"><i class="fas fa-heart"></i></button>
         </div>
     `;
             return popupContent;
+        }
+
+        function favoritar(agiota_id, user_id) {
+            $.ajax({
+                url: '/favoritar-agiota',
+                type: 'POST',
+                data: {
+                    agiotaId: agiota_id,
+                    userId: user_id,
+                },
+                success: function(response) {
+                    alert('Agiota favoritado!');
+                },
+                error: function(xhr, status, error) {
+                    alert('Erro ao favoritar o Agiota, por favor tente novamente mais tarde!.');
+                    console.log(error);
+                    console.log(xhr.responseText);
+                }
+            });
         }
 
         function animateMarkers() {
@@ -146,17 +179,12 @@
                     var latlng = marker.getLatLng();
                     var newLatlng = L.latLng(latlng.lat + (Math.random() - 0.5) * 0.01, latlng.lng + (Math.random() - 0.5) * 0.01);
                     marker.setLatLng(newLatlng);
-                }, 7000); // ajuste o intervalo conforme necessário
+                }, 7000);
             });
         }
 
         document.addEventListener("DOMContentLoaded", buscarMapa);
     </script>
-
-
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 </body>
 
 </html>

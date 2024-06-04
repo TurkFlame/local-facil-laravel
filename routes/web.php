@@ -7,6 +7,7 @@ use App\Http\Controllers\Register;
 use App\Http\Middleware\EnsureSessionIsOpened;
 use App\Providers\Provider;
 use App\Http\Controllers\UserDividasController;
+use App\Http\Controllers\UserFavoriteAgiotasController;
 
 Route::post('/login', [Login::class, 'index']);
 Route::get('/login', function () {
@@ -41,13 +42,13 @@ Route::middleware([EnsureSessionIsOpened::class])->group(function () {
         return view('pages.debitos');
     });
 
-    
     Route::get('/trabalhe-conosco', function () {
         return view('pages.trabalheConosco');
     });
 
     Route::post('/dividas', [UserDividasController::class, 'criarDivida']);
 
-    Route::get('/getAgiotas', [AgiotaController::class, 'getAgiotasReturnJson']);
+    Route::post('/favoritar-agiota', [UserFavoriteAgiotasController::class, 'favoritarAgiota']);
 
+    Route::get('/getAgiotas', [AgiotaController::class, 'getAgiotasReturnJson']);
 });

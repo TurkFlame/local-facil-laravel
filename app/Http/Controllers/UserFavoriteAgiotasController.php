@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\UserFavoriteAgiotasModel;
+use Illuminate\Http\Request;
 
 class UserFavoriteAgiotasController extends Controller
 {
@@ -26,4 +27,15 @@ class UserFavoriteAgiotasController extends Controller
         return UserFavoriteAgiotasModel::where(['user_id' => $user_id, 'agiota_id' => $agiota_id])->delete();
     }
 
+    public function favoritarAgiota(Request $request)
+    {
+        $user_id = $request->input('userId');
+        $agiota_id = $request->input('agiotaId');
+
+        UserFavoriteAgiotasModel::updateOrCreate(
+            ['user_id' => $user_id, 'agiota_id' => $agiota_id]
+        );
+
+        return response()->json(['success' => true]);
+    }
 }
