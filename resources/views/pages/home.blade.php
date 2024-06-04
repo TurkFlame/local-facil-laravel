@@ -54,8 +54,13 @@
                 </button>
             </a>
             <a href="/trabalhe-conosco">
-                <button type="button" class="btn btn-info btn-final mb-2">
+                <button type="button" class="btn btn-info mb-2">
                     <i class="fas fa-users mr-1"></i> Trabalhe conosco
+                </button>
+            </a>
+            <a href="/login">
+                <button type="button" class="btn btn-success mb-2 btn-final">
+                    <i class="fas fa-map mr-1"></i> Sair
                 </button>
             </a>
         </form>

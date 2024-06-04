@@ -93,8 +93,14 @@
                 </button>
             </a>
             <a href="/home">
-                <button type="button" class="btn btn-success mb-2 btn-final">
+                <button type="button" class="btn btn-success mb-2">
                     <i class="fas fa-map mr-1"></i> Mapa
+                </button>
+            </a>
+
+            <a href="/login">
+                <button type="button" class="btn btn-success mb-2 btn-final">
+                    <i class="fas fa-map mr-1"></i> Sair
                 </button>
             </a>
 
