@@ -117,7 +117,7 @@
                                 var marker = L.marker([lat + randomLatOffset, lon + randomLonOffset], {
                                     icon: icon,
                                     draggable: true // torna o marcador arrastável
-                                }).addTo(map).bindPopup(criarPopup(agiota.id, agiota.url, agiota.nome, Math.floor(Math.random() * 5) + 1), agiota.favorito);
+                                }).addTo(map).bindPopup(criarPopup(agiota.id, agiota.url, agiota.nome, agiota.email, agiota.telefone));
                                 markers.push(marker); // adiciona o marcador ao array de marcadores
                             }
 
@@ -142,17 +142,27 @@
             return array;
         }
 
-        function criarPopup(id, url, nome, favorito) {
+        function criarPopup(id, url, nome, email, telefone) {
             var popupContent = `
         <div>
             <img src="${url}" alt="${nome}" width="150" height="150">
             <br>
             <label><b>Nome: </b>${nome}</label>
-            <button class="btn btn-danger btn-sm text-right" onclick="favoritar(${id}, ${userId})"><i class="fas fa-heart"></i></button>
+            <br>
+            <label><b>E-mail: </b>${email}</label>
+            <br>
+            <label><b>Telefone: </b>${telefone}</label>
+            <br>
+            <div class="d-flex justify-content-center"> <!-- Adicionando classe d-flex e justify-content-center para centralizar -->
+                <button class="btn btn-danger btn-sm" onclick="favoritar(${id}, ${userId})" data-toggle="tooltip" title="Favoritar">
+                    <i class="fas fa-heart"></i>
+                </button>
+            </div>
         </div>
     `;
             return popupContent;
         }
+
 
         function favoritar(agiota_id, user_id) {
             $.ajax({

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\UserFavoriteAgiotasModel;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr\Empty_;
 
 class UserFavoriteAgiotasController extends Controller
 {
@@ -32,10 +33,13 @@ class UserFavoriteAgiotasController extends Controller
         $user_id = $request->input('userId');
         $agiota_id = $request->input('agiotaId');
 
-        UserFavoriteAgiotasModel::updateOrCreate(
-            ['user_id' => $user_id, 'agiota_id' => $agiota_id]
-        );
-
-        return response()->json(['success' => true]);
+        $response = UserFavoriteAgiotasModel::where('agiota_id', $agiota_id)->first();
+        if (empty($response)) {
+            UserFavoriteAgiotasModel::updateOrCreate(
+                ['user_id' => $user_id, 'agiota_id' => $agiota_id]
+            );
+            return response()->json(['success' => true]);
+        }
+        return response()->json(['success' => false]);
     }
 }
